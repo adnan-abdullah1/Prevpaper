@@ -14,4 +14,4 @@ def About():
 def gwtpaper():
     return  render_template("getpapers.html")
 if __name__ == "__main__":
-    app.run()    
+    app.run(debug=True,port=1111)    
