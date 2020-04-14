@@ -58,18 +58,21 @@
             <span class="subheading">Still in Development </span>
           <br>
             <!--   drop down-->
-  <label for="cars">Choose Semester:</label>
-
-  <select id="cars">
-    <option value="semester1">semester1</option>
-    <option value="semester2">semester2</option>
-    <option value="semester3">semester3</option>
-    <option value="semester4">semester4</option>
-    <option value="semester5">semester5</option>
-    <option value="semester6">semester6</option>
-    <option value="semester7">semester7</option>
-    <option value="semester8">semester8</option>
-  </select> 
+            <form action= "{{ url_for('return_sem') }}" method="POST">
+              <label><u><mark><i>Choose Semster: &nbsp;</i></mark></u></label>
+              <select name='sem'>
+                  <option value="semster1">semster1</option>
+                  <option value="semster2">semster2</option>
+                  <option value="semster3">semster3</option>
+                  <option value="semster4">semster4</option>
+                  <option value="semster5">semster5</option>
+                  <option value="semster">semster6</option>
+                  <option value="semster7">semster7</option>
+                  <option value="semster8">semster8</option>
+                  
+              </select>
+              <input type="submit" value="Submit" class="mybutton">
+          </form>
           </div>
         </div>
       </div>
