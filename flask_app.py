@@ -1,11 +1,18 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,redirect
 from flask_sqlalchemy import SQLAlchemy 
+import pymysql
+#from sqlalchemy.orm import sessionmaker
+#from snowflake.sqlalchemy import URL
+#from sqlalchemy.dialects import registry
+#from sqlalchemy import create_engine
+import sqlalchemy.dialects.sqlite
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/btech'
+#registry.register('snowflake', 'snowflake.sqlalchemy', 'dialect')
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///previouspaper.db"#"mysql+pymyql://root:admin@127.0.0.1/btech"
 
-  
 db = SQLAlchemy(app)   #db object
+
 class sem1(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.String(80), nullable=True)
@@ -18,6 +25,7 @@ class sem2(db.Model):
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
+   
 class sem3(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.String(80), nullable=True)
@@ -29,14 +37,32 @@ class sem4(db.Model):
     batch = db.Column(db.String(80), nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
-    paper = db.Column(db.String(120), nullable=False)
+    #paper = db.Column(db.String(120), nullable=False)
 class sem5(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.String(80), nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
+class sem6(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    batch = db.Column(db.String(80), nullable=True)
     
+    papertype = db.Column(db.String(120), nullable=True)
+    paper = db.Column(db.String(120), nullable=False)
+class sem7(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    batch = db.Column(db.String(80), nullable=True)
+    
+    papertype = db.Column(db.String(120), nullable=True)
+    paper = db.Column(db.String(120), nullable=False)
+class sem8(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    batch = db.Column(db.String(80), nullable=True)
+    
+    papertype = db.Column(db.String(120), nullable=True)
+    paper = db.Column(db.String(120), nullable=False)
+
     
 @app.route("/")
 def home():
@@ -70,16 +96,24 @@ def return_sem():
 @app.route("/upload_papertodb" , methods=['GET', 'POST'])
 def upload_papertodb():
     batch_get = request.form['batch']
-    batch_get = request.form.get('batch')
+    #batch_get = request.form.get('batch')
     papertype_get = request.form['papertype']
-    papertype_get = request.form.get('papertype')
+    #papertype_get = request.form.get('papertype')
+    print("*******************************")
+    #print(papertype_get)
     paper_file = request.form['paper']
-    paper_file = request.form.get('paper')
-    if(request.method=='POST'):
-        entry = sem1(batch=batch_get,paper=paper_file )   #vars are matching to database sem1 cols
+    #paper_file = request.form.get('paper')
+    if(request.method=='POST' ):
+        
+        
+        entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        db.create_all()   #vars are matching to database sem1 cols
         db.session.add(entry)
         db.session.commit()
+        return redirect('/')
+        
     
 
+    
 if __name__ == "__main__":
     app.run(debug=True,port=1115)    
