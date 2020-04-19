@@ -37,7 +37,7 @@ class sem4(db.Model):
     batch = db.Column(db.String(80), nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
-    #paper = db.Column(db.String(120), nullable=False)
+    paper = db.Column(db.String(120), nullable=False)
 class sem5(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.String(80), nullable=True)
@@ -78,13 +78,17 @@ def About():
 def gwtpaper():
     return  render_template("upload_download.html")
 
+
+
 #below fxn gets value from drop of semster in upload paper
 @app.route("/fetch_sem_upload_download" , methods=['GET', 'POST'])
 def return_sem():
     select = request.form['sem']
     select = request.form.get('sem')
-    global sem_keep #makin this var global so i can use sem value in other fxns
+    #makin this var global so i can use sem value in other fxns
+    global sem_keep
     sem_keep=str(select) 
+    
     radio_val = request.form['upload_download']
     radio_val=request.form.get('upload_download')
     
@@ -92,28 +96,52 @@ def return_sem():
         return render_template('uploadtemplate.html',param=str(select),param1=str(radio_val))
     elif str(radio_val=='download'):
         return render_template('paper_show.html',param=str(select),param1=str(radio_val))
-
+def database_commit(entry):
+    db.create_all()  
+    db.session.add(entry)
+    db.session.commit()
+    
 @app.route("/upload_papertodb" , methods=['GET', 'POST'])
 def upload_papertodb():
     batch_get = request.form['batch']
-    #batch_get = request.form.get('batch')
     papertype_get = request.form['papertype']
-    #papertype_get = request.form.get('papertype')
-    print("*******************************")
-    #print(papertype_get)
+    
     paper_file = request.form['paper']
-    #paper_file = request.form.get('paper')
-    if(request.method=='POST' ):
-        
-        
+    global save_Sem_Status
+    save_Sem_Status=sem_keep
+    print("save sem is ",save_Sem_Status)
+    
+    if(request.method=='POST' and save_Sem_Status=='semster1' ):
         entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
-        db.create_all()   #vars are matching to database sem1 cols
-        db.session.add(entry)
-        db.session.commit()
-        return redirect('/')
-        
-    
-
-    
+        database_commit(entry) #this fxn saves overhead below ifelse simply reduce no of lines
+        return redirect("/")   
+    elif(request.method=='POST' and save_Sem_Status=='semster2' ):
+        entry = sem2(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
+    elif(request.method=='POST' and save_Sem_Status=='semster3' ):
+        entry = sem3(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
+    elif(request.method=='POST' and save_Sem_Status=='semster4' ):
+        entry = sem4(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
+    elif(request.method=='POST' and save_Sem_Status=='semster5' ):
+        entry = sem5(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/")    
+    elif(request.method=='POST' and save_Sem_Status=='semster6' ):
+        entry = sem6(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
+    elif(request.method=='POST' and save_Sem_Status=='semster7' ):
+        entry = sem7(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
+    elif(request.method=='POST' and save_Sem_Status=='semster8' ):
+        entry = sem8(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        database_commit(entry) #this fxn saves overhead below ifelse
+        return redirect("/") 
 if __name__ == "__main__":
     app.run(debug=True,port=1115)    
