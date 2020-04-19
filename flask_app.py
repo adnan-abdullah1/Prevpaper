@@ -71,14 +71,14 @@ def home():
     return render_template("index.html")
 @app.route("/upload")
 def upload_papers():
-    return render_template("upload_download.html")
+    return render_template("upload_download.html",param="Upload your papers make selection appropriately")
 @app.route("/about")
 def About():
     return render_template("about.html")
 
 @app.route("/getpapers")
 def gwtpaper():
-    return  render_template("upload_download.html")
+    return  render_template("upload_download.html",param="Download your papers make selection appropriately")
 
 
 
@@ -114,7 +114,7 @@ def upload_papertodb():
     if(request.method=='POST' and save_Sem_Status=='semster1' ):
         entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse simply reduce no of lines
-        return redirect("/")   
+        return redirect("/getpapers")   
     elif(request.method=='POST' and save_Sem_Status=='semster2' ):
         entry = sem2(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
@@ -145,4 +145,4 @@ def upload_papertodb():
         database_commit(entry) #this fxn saves overhead below ifelse
         return redirect("/") 
 if __name__ == "__main__":
-    app.run(debug=True,port=1115)    
+    app.run(debug=True,port=1125)    

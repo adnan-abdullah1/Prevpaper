@@ -14,6 +14,13 @@
         <script src="form.js"></script>
     </head>
     <body >
+        <div>
+            <a class="btn btn-primary float-right" href="/getpapers" role="back"> get-papers</a>
+            <a class="btn btn-primary float-right" href="/" role="home">home</a>
+            <a class="btn btn-primary float-right" href="/upload" role="back"> <--back</a>
+            
+          </div>
+        
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
@@ -22,29 +29,31 @@
             <div class="form-group">
                 <label for="batch">
                     Batch:</label>
-                <input type="text" class="form-control" 
-                id="batch" name="batch"  required maxlength="50">
+                <input type="text" class="form-control" oninvalid="this.setCustomValidity('Please Enter batch')"
+                id="batch" name="batch"  autofocus required maxlength="50">
 
             </div>
             <div class="form-group">
                 <label for="papertype">
                     Exam type:</label>
-                <input type="papertype" class="form-control" 
-                id="papertype" name="papertype" required maxlength="50">
+                <input type="papertype" class="form-control"  oninvalid="this.setCustomValidity('Please Enter exam type major/minor')"
+                id="papertype" name="papertype" autofocus required maxlength="50">
             </div>
             
 
                         <div class="form-group">
                 <label for="paper">
                     Paper Upload:</label>
-                <input type="file" class="form-control" id="paper" name="paper"  required>
+                <input type="file" class="form-control" id="paper" name="paper"  autofocus required>
             </div>     
                    
 
             
-            
-            <button type="submit" class="btn btn-lg btn-success pull-right" id="btnContactUs">Submit &rarr;</button>
-
+            <div>
+                <button type="submit" class="btn btn-lg btn-success pull-right" id="btnContactUs">submit &rarr;</button>
+                <button type="reset" class="btn btn-lg btn-success pull-right" id="btnContactUs">Reset &rarr;</button>
+         
+            </div>
         </form>
         <div id="succ
                     <div id="success_message" style="width:100%; height:100%; display:none; "> <h3>Sent your message successfully!</h3> </div>
