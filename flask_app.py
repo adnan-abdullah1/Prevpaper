@@ -71,14 +71,14 @@ def home():
     return render_template("index.html")
 @app.route("/upload")
 def upload_papers():
-    return render_template("upload_download.html",param="Upload your papers make selection appropriately")
+    return render_template("upload_download.html",param_btn="upload",param="Upload your papers make selection appropriately")
 @app.route("/about")
 def About():
     return render_template("about.html")
 
 @app.route("/getpapers")
 def gwtpaper():
-    return  render_template("upload_download.html",param="Download your papers make selection appropriately")
+    return  render_template("upload_download.html",param_btn="get-papers",param="Download your papers make selection appropriately")
 
 
 
