@@ -15,38 +15,38 @@ db = SQLAlchemy(app)   #db object
 
 class sem1(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
 class sem2(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
    
 class sem3(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
-    papertype = db.Column(db.String(120), nullable=True)
-    paper = db.Column(db.String(120), nullable=False)
+    papertype = db.Column(db.Integer, nullable=True)
+    paper = db.Column(db.Integer, nullable=False)
 class sem4(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
 class sem5(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
-    papertype = db.Column(db.String(120), nullable=True)
+    papertype = db.Column(db.Integer, nullable=True)
     paper = db.Column(db.String(120), nullable=False)
 class sem6(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
@@ -54,13 +54,13 @@ class sem6(db.Model):
 class sem7(db.Model):
 
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
 class sem8(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    batch = db.Column(db.String(80), nullable=True)
+    batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)

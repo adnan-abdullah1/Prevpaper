@@ -29,8 +29,8 @@
             <div class="form-group">
                 <label for="batch">
                     Batch:</label>
-                <input type="text" class="form-control" oninvalid="this.setCustomValidity('Please Enter batch')"
-                id="batch" name="batch"  autofocus required maxlength="50">
+                <input type="number" class="form-control" oninvalid="this.setCustomValidity('Please Enter numeric batch and valid batch')"
+                id="batch" name="batch"  autofocus required min="2016" max="2020">
 
             </div>
             <div class="form-group">
@@ -46,7 +46,7 @@
                     Paper Upload:</label>
                 <input type="file" class="form-control" id="paper" name="paper"  autofocus required>
             </div>     
-                   
+                   <br><br>
 
             
             <div>
