@@ -50,7 +50,9 @@ class sem6(db.Model):
     
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.String(120), nullable=False)
+
 class sem7(db.Model):
+
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.String(80), nullable=True)
     
@@ -88,10 +90,8 @@ def return_sem():
     #makin this var global so i can use sem value in other fxns
     global sem_keep
     sem_keep=str(select) 
-    
     radio_val = request.form['upload_download']
     radio_val=request.form.get('upload_download')
-    
     if str(radio_val)=='upload':
         return render_template('uploadtemplate.html',param=str(select),param1=str(radio_val))
     elif str(radio_val=='download'):
@@ -130,11 +130,12 @@ def upload_papertodb():
     elif(request.method=='POST' and save_Sem_Status=='semster5' ):
         entry = sem5(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/")    
+        return redirect("/")   
     elif(request.method=='POST' and save_Sem_Status=='semster6' ):
         entry = sem6(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/")    
+    
     elif(request.method=='POST' and save_Sem_Status=='semster7' ):
         entry = sem7(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
