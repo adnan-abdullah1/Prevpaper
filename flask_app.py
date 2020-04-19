@@ -112,37 +112,41 @@ def upload_papertodb():
     print("save sem is ",save_Sem_Status)
     
     if(request.method=='POST' and save_Sem_Status=='semster1' ):
+        
         entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse simply reduce no of lines
-        return redirect("/getpapers")   
+       
+        return redirect("/getpapers")
+        
+
     elif(request.method=='POST' and save_Sem_Status=='semster2' ):
         entry = sem2(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster3' ):
         entry = sem3(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster4' ):
         entry = sem4(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster5' ):
         entry = sem5(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/")   
+        return redirect("/getpapers")   
     elif(request.method=='POST' and save_Sem_Status=='semster6' ):
         entry = sem6(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/")    
+        return redirect("/getpapers")    
     
     elif(request.method=='POST' and save_Sem_Status=='semster7' ):
         entry = sem7(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster8' ):
         entry = sem8(batch=batch_get,papertype=papertype_get,paper=paper_file)
         database_commit(entry) #this fxn saves overhead below ifelse
-        return redirect("/") 
+        return redirect("/getpapers") 
 if __name__ == "__main__":
     app.run(debug=True,port=1125)    
