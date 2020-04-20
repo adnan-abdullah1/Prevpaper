@@ -9,7 +9,7 @@ import sqlalchemy.dialects.sqlite
 
 app=Flask(__name__)
 #registry.register('snowflake', 'snowflake.sqlalchemy', 'dialect')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paper11.db"#"mysql+pymyql://root:admin@127.0.0.1/btech"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paper_database.db"#"mysql+pymyql://root:admin@127.0.0.1/btech"
 
 db = SQLAlchemy(app)   #db object
 
@@ -80,7 +80,7 @@ class sem8(db.Model):
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
         return 'data is : ' + str(self.sno)
-    
+db.create_all()
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -112,10 +112,7 @@ def return_sem():
     elif str(radio_val=='download'):
         all_papers=query.filter_by().all()
         return render_template('paper_show.html',param=all_papers)
-def database_commit(entry):
-    db.create_all()  
-    db.session.add(entry)
-    db.session.commit()
+
     
 @app.route("/upload_papertodb" , methods=['GET', 'POST'])
 def upload_papertodb():
@@ -131,46 +128,45 @@ def upload_papertodb():
         
         entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse simply reduce no of lines
-       
+        db.session.commit()
         return redirect("/getpapers")
         
 
     elif(request.method=='POST' and save_Sem_Status=='semster2' ):
         entry = sem2(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster3' ):
         entry = sem3(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster4' ):
         entry = sem4(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster5' ):
         entry = sem5(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers")   
     elif(request.method=='POST' and save_Sem_Status=='semster6' ):
         entry = sem6(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers")    
     
     elif(request.method=='POST' and save_Sem_Status=='semster7' ):
         entry = sem7(batch=batch_get,papertype=papertype_get)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster8' ):
         entry = sem8(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
-        database_commit(entry) #this fxn saves overhead below ifelse
+        db.session.commit()
         return redirect("/getpapers") 
     
 if __name__ == "__main__":

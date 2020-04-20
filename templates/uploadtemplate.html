@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/paper.jpg') }}')"> 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +14,8 @@
         <link rel="stylesheet" href="form.css" >
         <script src="form.js"></script>
     </head>
-    <body >
+    <body>
+
         <div>
             <a class="btn btn-primary float-right" href="/getpapers" role="back"> get-papers</a>
             <a class="btn btn-primary float-right" href="/" role="home">home</a>
@@ -36,7 +38,7 @@
             <div class="form-group">
                 <label for="papertype">
                     Exam type:</label>
-                <input type="papertype" class="form-control"  oninvalid="this.setCustomValidity('Please Enter exam type major/minor')"
+                <input placeholder="MINOR or MAJOR" type="papertype" class="form-control"  oninvalid="this.setCustomValidity('Please Enter exam type major/minor')"
                 id="papertype" name="papertype" autofocus required maxlength="50">
             </div>
             

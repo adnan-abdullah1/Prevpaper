@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+ 
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,6 +23,8 @@
 </head>
 
 <body>
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/home-bg.jpg') }}')">
+<head>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -74,17 +75,18 @@
                   <option value="semster6">semster6</option>
                   <option value="semster7">semster7</option>
                   <option value="semster8">semster8</option>
-                  <br>
-                  <br>
-                  <br>
-                 
-                  <input type="radio" id="upload" name="upload_download" value="upload" required>
-                  <label for="Upload">upload</label><br>
-                   <input type="radio" id="download" name="upload_download" value="download" required>
-                    <label for="Download">download</label><br>
+        
+                 </select>
+            
+                 <br>
+       
+                 <input type="radio" id="upload" name="upload_download" value="upload" required>
+                  <label for="Upload">Upload Papers</label><br>
+                   &nbsp &nbsp &nbsp<input type="radio" id="download" name="upload_download" value="download" required>
+                    <label for="Download">Download Papers</label><br>
                   
                     
-              </select>
+              
               <input type="submit" value="Submit" class="mybutton">
           </form>
           </div>
