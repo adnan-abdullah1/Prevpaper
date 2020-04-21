@@ -10,7 +10,7 @@ class sem1(db.Model):
     batch = db.Column(db.Integer, nullable=True)
     
     papertype = db.Column(db.String(120), nullable=True)
-    paper = db.Column(db.LargeBinary, nullable=False)
+    paper = db.Column(db.BLOB, nullable=False)
     def __repr__(self):
         return 'data is : ' + str(self.sno)
 class sem2(db.Model):
