@@ -5,10 +5,11 @@ import sqlalchemy.dialects.sqlite
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paper_database.db"#"mysql+pymyql://root:admin@127.0.0.1/btech"
 db = SQLAlchemy(app)   #db object
+
 class sem1(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.BLOB, nullable=False)
     def __repr__(self):
@@ -16,7 +17,7 @@ class sem1(db.Model):
 class sem2(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -25,7 +26,7 @@ class sem2(db.Model):
 class sem3(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.Integer, nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -33,7 +34,7 @@ class sem3(db.Model):
 class sem4(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -41,7 +42,7 @@ class sem4(db.Model):
 class sem5(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -49,7 +50,7 @@ class sem5(db.Model):
 class sem6(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -59,7 +60,8 @@ class sem7(db.Model):
 
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
@@ -67,13 +69,13 @@ class sem7(db.Model):
 class sem8(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     batch = db.Column(db.Integer, nullable=True)
-    
+    paper_ext=db.Column(db.String(120), nullable=True)
     papertype = db.Column(db.String(120), nullable=True)
     paper = db.Column(db.LargeBinary, nullable=False)
     def __repr__(self):
         return 'data is : ' + str(self.sno)
 
-db.create_all()
+
 
 @app.route("/")
 def home():
@@ -91,7 +93,12 @@ def About():
 def gwtpaper():
 
     return  render_template("upload_download.html",param_btn="get-papers",param="Download your papers make selection appropriately")
-
+@app.route("/download_paper")
+def download_paper():
+    with open("adnan.c", 'wb') as file: 
+        file.write(sem1.query.all()[0].paper) 
+        return(file.write(sem1.query.all()[0].paper))
+        
 #below fxn gets value from drop of semster in upload paper
 @app.route("/fetch_sem_upload_download" , methods=['GET', 'POST'])
 def return_sem():
@@ -139,47 +146,52 @@ def upload_papertodb():
     papertype_get = request.form['papertype'].upper()
     
     paper_file = request.files['paper'].read()#request.files['paper']
+    paper_ext = str(request.files['paper']) #gets file name
+    paper_ext=paper_ext.split()[1] #getting filename from form 
+    #paper_ext=str(paper_ext)
+    print(" b;lallalala   ",paper_ext)
+    #paper_ext will save filename with extension into database
     global save_Sem_Status
     save_Sem_Status=sem_keep
     print("save sem is ",save_Sem_Status)
     if(request.method=='POST' and save_Sem_Status=='semster1' ):
-        entry = sem1(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem1(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers")
     elif(request.method=='POST' and save_Sem_Status=='semster2' ):
-        entry = sem2(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem2(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster3' ):
-        entry = sem3(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem3(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster4' ):
-        entry = sem4(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem4(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster5' ):
-        entry = sem5(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem5(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers")   
     elif(request.method=='POST' and save_Sem_Status=='semster6' ):
-        entry = sem6(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem6(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers")    
     
     elif(request.method=='POST' and save_Sem_Status=='semster7' ):
-        entry = sem7(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem7(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
     elif(request.method=='POST' and save_Sem_Status=='semster8' ):
-        entry = sem8(batch=batch_get,papertype=papertype_get,paper=paper_file)
+        entry = sem8(batch=batch_get,paper_ext=paper_ext,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
