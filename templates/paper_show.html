@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <title> this page will show papers of sem</title>
-<body>
+
+<body >
+    <h1>u can use table below</h1>
     {% if param is defined %}
     
     {% for i in param %}
@@ -12,10 +14,10 @@
     
     
     , exam     :{{ i.papertype }}
-   <a >
+   
 
     
-<a href={{i.paper}} class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true" Download>Download</a> 
+<a href={{i.paper}} class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true" Download>&nbsp&nbsp Download</a> 
 <br><br><br>
 {% endfor %}
 

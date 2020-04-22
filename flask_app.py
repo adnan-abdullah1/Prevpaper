@@ -174,7 +174,7 @@ def upload_papertodb():
         return redirect("/getpapers")    
     
     elif(request.method=='POST' and save_Sem_Status=='semster7' ):
-        entry = sem7(batch=batch_get,papertype=papertype_get)
+        entry = sem7(batch=batch_get,papertype=papertype_get,paper=paper_file)
         db.session.add(entry)
         db.session.commit()
         return redirect("/getpapers") 
