@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <title> this page will show papers of sem</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Paper upload section</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="form.css" >
+        <script src="form.js"></script>
+        <style>
+          table {
+             font-family: arial, sans-serif;
+             border-collapse: collapse;
+             width: 100%;
+           }
+           
+           td, th {
+             border: 1px solid #dddddd;
+             text-align: left;
+             padding: 8px;
+           }
+           
+          
+           </style>
+    </head>
+    <body >
+     
+
+        <div>
+            <a class="btn btn-primary float-right" href="/upload" role="back"> get-papers</a>
+            <a class="btn btn-primary float-right" href="/" role="home">home</a>
+            <a class="btn btn-primary float-right" href="/getpapers" role="home">&larr;back</a>
+            
+          </div>
+          <div>
+
+    {% if param is defined and param|length>0 %}
+    <table  >
+      <tr  style="color: green; ">
+        <th><big>Batch</big></th>
+        <th><big>Subject</big></th>
+        <th><big>Exam</big></th>
+        <th><big>Download</big></th>
+      </tr>
+
+    <h2>Following papers  are available for this semster</h2>
+    {% for i in param %}
+  <table>
+  <tr>
+  <td><b>{{ i.batch }}</b></td>
+ <td><b>{{ i.subject }}</b></td>
+ <td><b>{{ i.papertype }}</b></td>
+    
+
+<td><a href="{{url_for('download_paper',sno=i.sno-1)}}" target="_parent"><button class='btn btn-default' >Download</button></a></th>
+  </tr>
+<br>
+
+{% endfor %}
+  </table>
+
+  
+
+{% else %}
+<h1>!!!No papers are available for this semster</h1> 
+{% endif %}
+
+
+      
+        
+            </div>
+    
+        </div>
+      <div>
+        <a class="btn btn-primary float-right" href="">&larr;Previous </a>
+        <a class="btn btn-primary float-right" href="">Next &rarr;</a>
+    </div>
+    </body>
+</html>

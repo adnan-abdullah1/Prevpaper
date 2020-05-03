@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/paper.jpg') }}')"> 
+<html lang="en"> 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +13,7 @@
         <link rel="stylesheet" href="form.css" >
         <script src="form.js"></script>
     </head>
-    <body>
+    <body bgcolor="#afafaf";>
 
         <div>
             <a class="btn btn-primary float-right" href="/getpapers" role="back"> get-papers</a>
@@ -30,22 +29,30 @@
         <form role="form" action= "{{ url_for('upload_papertodb') }}" method="post" id="reused_form" enctype="multipart/form-data"   >
             <div class="form-group">
                 <label for="batch">
-                    Batch:</label>
+                    Batch:&nbsp;&nbsp;</label>
                 <input type="number" class="form-control" oninvalid="this.setCustomValidity('Please Enter numeric batch and valid batch')"
                 id="batch" name="batch"  autofocus required min="2016" max="2020">
 
             </div>
             <div class="form-group">
                 <label for="papertype">
-                    Exam type:</label>
+                    Exam:&nbsp;&nbsp;&nbsp;</label>
                 <input placeholder="MINOR or MAJOR" type="papertype" class="form-control"  oninvalid="this.setCustomValidity('Please Enter exam type major/minor')"
                 id="papertype" name="papertype" autofocus required maxlength="50">
             </div>
             
+        </div>
+        <div class="form-group">
+            <label for="subject">
+                Subject:</label>
+            <input placeholder="Subject name " type="subject" class="form-control"  oninvalid="this.setCustomValidity('Please Enter subject name')"
+            id="subject" name="subject" autofocus required maxlength="50">
+        </div>
+        
 
                         <div class="form-group">
                 <label for="paper">
-                    Paper Upload:</label>
+                    Paper&nbsp;&nbsp;
                 <input type="file" class="form-control" id="paper" name="paper"  autofocus required>
             </div>     
                    <br><br>
@@ -55,7 +62,7 @@
                 <button type="submit" class="btn btn-lg btn-success pull-right" id="btnContactUs">submit &rarr;</button>
                 <button type="reset" class="btn btn-lg btn-success pull-right" id="btnContactUs">Reset &rarr;</button>
          
-            </div>
+            </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </form>
         <div id="succ
                     <div id="success_message" style="width:100%; height:100%; display:none; "> <h3>Sent your message successfully!</h3> </div>

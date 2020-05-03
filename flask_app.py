@@ -1,14 +1,12 @@
-from flask import render_template,request,redirect,request,url_for
-from flask import send_file  
+from flask import render_template,request,redirect,request,url_for,Response
+from werkzeug.wsgi import FileWrapper
+from flask import send_file  ,session
 #import sqlalchemy.dialects.sqlite
-from flask import flash
+from flask import flash,Flask
 #from flask_table import Table, Col
 from io import BytesIO
 from dbclass import *
-
-app.secret_key = 'super secret key'
-
-db = SQLAlchemy(app)   #db object
+from dbclassadmin import *
 
 
 @app.route("/")
@@ -22,32 +20,73 @@ def upload_papers():
 
 @app.route("/about")
 def About():
-
     return render_template("about.html")
+
 @app.route("/getpapers")
 def getpaper():
-
     return  render_template("download_section.html",param_btn="get-papers",param="Download your papers make semster selection appropriately")
+
 
 @app.route("/download_paper/<int:sno>")
 def download_paper(sno):
     __sem__=__sem_keep
-    __sem__=eval(__sem__[0:3]+__sem__[7:8]) #turns eg semster1 to sem1
-    return send_file(BytesIO(__sem__.query.all()[sno].paper),
-    attachment_filename=__sem__.query.all()[sno].paper_ext,as_attachment="True")
-        
-
+    #s=b"Adnan"
+    #s=BytesIO(s)
+    #s=FileWrapper(s)
+    #return Response(s,mimetype="text/plain",direct_passthrough=True)
+    #return send_file(s,attachment_filename="abc.pdf",as_attachment="True")
     
-    
-@app.route("/paper_show")
-def paper_show():
-    #select = request.form['sem']
-    return render_template("paper_show.html")
+    sem=eval(__sem__[0:3]+__sem__[7:8]) #turns eg semster1 to sem1
+    return send_file(BytesIO(sem.query.all()[sno].paper),
+    attachment_filename=sem.query.all()[sno].paper_ext,as_attachment="True")
 
+@app.route("/delete_paper/<int:sno><semm>")
+def delete_paper(sno,semm):
+   
+    semm_=eval(semm[0:3]+semm[7:8])
+    
+    #sno=semm.query.get_or_404(sno)
+    #db.delete(sno)
+    #db.session.commit()
+    #hold=semm.query.get_or_404(sno)
+    #db.session.delete(hold)
+    
+    #db.session.commit()
+    #print(semm.query.all())
+    return redirect("/about")
+@app.route("/dashboard",methods=['GET','POST'])
+def dashboard():
+    
+    select = request.form.get('sem')
+    semm=select
+    
+    #makin this var global so i can use sem value in other fxns
+    select=str(select)
+    select=eval(select[0:3]+select[7:8]) 
+    return render_template("dashboard.html",param=select.query.all(),semm=semm)
+
+# Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != admin.query.all()[0].username or request.form['password1'] != admin.query.all()[0].password:
+            flash("success ","success")
+            error = 'Invalid Credentials. Please try again.'
+            
+        else:
+
+            
+            return render_template("dashboard.html")
+    
+    return render_template('loginforadmin.html',error=error)
+    
+
+ 
 #below fxn gets value from drop of semster in upload paper
 @app.route("/download-papers" , methods=['GET','POST'])
 def return_sem1():
-    print(" downloaddddddd")
+    
     #select = request.form['sem']
     select = request.form.get('sem')
     #makin this var global so i can use sem value in other fxns
@@ -70,7 +109,7 @@ def return_sem2():
     #savesem=select
     #savesem=eval(savesem[0:3]+savesem[7:8])
     #data=savesem.query.all()
-    print("uploaddddddddd")
+    
     return render_template('uploadtemplate.html',param=str(select))
         
 
@@ -129,6 +168,6 @@ def upload_papertodb():
     else:
         return render_template("uploadtemplatte.html")
 if __name__ == "__main__":
-    app.run(debug=True,port=3002)    
+    app.run(debug=True,port=3006)    
         
     
