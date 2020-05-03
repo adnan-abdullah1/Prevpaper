@@ -168,6 +168,8 @@ def upload_papertodb():
     else:
         return render_template("uploadtemplatte.html")
 if __name__ == "__main__":
-    app.run(debug=True,port=3006)    
+    app.run(debug=True,port=30026)    
         
+
+A
     
