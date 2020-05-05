@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <title> this page will show papers of sem</title>
@@ -34,10 +35,9 @@
      
 
         <div>
-            <a class="btn btn-primary float-right" href="/upload" role="back"> Upload papers</a>
-            <a class="btn btn-primary float-right" href="/getpapers" role="home">Download</a>
-            <a class="btn btn-primary float-right" href="/addadmin" role="home">Add Admin</a>
+            <a class="btn btn-primary float-right" href="/upload" role="back"> get-papers</a>
             <a class="btn btn-primary float-right" href="/" role="home">home</a>
+            <a class="btn btn-primary float-right" href="/getpapers" role="home">&larr;back</a>
             
           </div>
           <div>
@@ -67,6 +67,7 @@
             {% if param is defined and param|length>0 %}
             <table  >
               <tr  style="color: green; ">
+                <th><big>Sno</big></th>
                 <th><big>Batch</big></th>
                 <th><big>Subject</big></th>
                 <th><big>Exam</big></th>
@@ -77,12 +78,13 @@
             {% for i in param %}
           <table>
           <tr>
+            <td><b>{{ i.sno }}</b></td>
           <td><b>{{ i.batch }}</b></td>
          <td><b>{{ i.subject }}</b></td>
          <td><b>{{ i.papertype }}</b></td>
             
         
-        <td><a href="/delete_paper/{{i.sno-1}}{{semm}}" target="_parent"><button class='btn btn-danger' >Delete</button></a></th>
+        <td><a href="/delete_paper/{{i.sno}}" target="_parent"><button class='btn btn-danger' >Delete</button></a></th>
             
           </tr>
         <br>
@@ -91,8 +93,11 @@
           </table>
         
           
-          {% endif %}
         
+        {% elif param is not defined %}
+        <h1>!!!No papers are available for this semster</h1> 
+        {% endif %}
+    
         </div>
         <br><br> <br><br> <br><br> <br><br> <br><br>
       <div>
