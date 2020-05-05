@@ -7,7 +7,7 @@ from flask import flash,Flask
 from io import BytesIO
 from dbclass import *
 from dbclassadmin import *
-
+import sqlite3
 
 @app.route("/")
 def home():
@@ -25,11 +25,8 @@ def About():
 @app.route("/getpapers")
 def getpaper():
     return  render_template("download_section.html",param_btn="get-papers",param="Download your papers make semster selection appropriately")
-"""
-    @app.route("/addadmin")
-    def addadmin():
-        return render_template("addadmin.html")
-"""
+
+
 @app.route("/download_paper/<int:sno>")
 def download_paper(sno):
     __sem__=__sem_keep
@@ -43,20 +40,9 @@ def download_paper(sno):
     return send_file(BytesIO(sem.query.all()[sno].paper),
     attachment_filename=sem.query.all()[sno].paper_ext,as_attachment="True")
 
-@app.route("/delete_paper/<int:sno><semm>")
-def delete_paper(sno,semm):
    
-    semm_=eval(semm[0:3]+semm[7:8])
-    
-    #sno=semm.query.get_or_404(sno)
-    #db.delete(sno)
-    #db.session.commit()
-    #hold=semm.query.get_or_404(sno)
-    #db.session.delete(hold)
-    
-    #db.session.commit()
-    #print(semm.query.all())
-    return redirect("/about")
+  
+
 @app.route("/dashboard",methods=['GET','POST'])
 def dashboard():
     
@@ -78,6 +64,7 @@ def login():
             error = 'Invalid Credentials. Please try again.'
             
         else:
+
             
             return render_template("dashboard.html")
     
@@ -169,8 +156,29 @@ def upload_papertodb():
    
     else:
         return render_template("uploadtemplatte.html")
+'''@app.route("/delete_paper/<string:sno>",methods = ['GET','POST'])
+def delete_paper(sno):
+    select = request.form.get('sem')
+    global __sem_keep
+    __sem_keep=str(select)
+    savesem=select
+
+    post=savesem.query.filter_by(sno=sno).first()
+    db.session.delete(post)
+    db.session.commit()
+    return render_template("dashboard.html")'''
+    
+@app.route('/delete_paper/<string:sno>', methods=['GET', 'POST'])
+def delete_paper(sno):
+    print("the value of serial is ",sno)
+    
+    drop = sem1.query.filter_by(sno=sno).first()
+    db.session.delete(drop)
+    db.session.commit()
+    flash("deleted sucessfully")
+    return render_template("dashboard.html")
 if __name__ == "__main__":
-    app.run()    
+    app.run(debug=True,port=30026)    
         
 
 
